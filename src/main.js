@@ -7,6 +7,7 @@ import "carbon-components/css/carbon-components.css";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import CarbonComponentsVue from "@carbon/vue";
+import "core-js/stable";
 
 Vue.config.productionTip = false;
 Vue.use(CarbonComponentsVue);
