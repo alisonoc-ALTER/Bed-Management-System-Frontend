@@ -9,7 +9,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@carbon/vue": "^2.45.1",
+    "@carbon/vue": "^3.0.17",
     "axios": "^1.6.8",
     "carbon-components": "^10.58.5",
     "chart.js": "^4.4.2",
