@@ -23,9 +23,16 @@
                 <template v-slot:nav-icon><network-admin-control /></template>
                 Admin
             </cv-side-nav-link>
+
+            <!-- New  -->
+            <cv-side-nav-link to="/reports">
+                <template v-slot:nav-icon><activity /></template>
+                Overview
+            </cv-side-nav-link>
+            
             <cv-side-nav-menu-item class="footer" href="/logout">
                 <p>Logout</p>
-                <logout-icon />
+                
             </cv-side-nav-menu-item>
         </cv-side-nav-items>
     </cv-side-nav>
@@ -37,6 +44,7 @@ import HospitalBedIcon from "@carbon/icons-vue/es/hospital-bed/32";
 import HomeIcon from "@carbon/icons-vue/es/home/32";
 import ManageRequestsIcon from "@carbon/icons-vue/lib/airline--manage-gates/32";
 import NetworkAdminControl from "@carbon/icons-vue/es/network--admin-control/32";
+import activity from "@carbon/icons-vue/es/activity/32.js";
 
 export default {
     name: "SideBar",
@@ -45,7 +53,8 @@ export default {
         HospitalBedIcon,
         HomeIcon,
         ManageRequestsIcon,
-        NetworkAdminControl
+        NetworkAdminControl,
+        activity
     },
     computed: {
         admin() {
