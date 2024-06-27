@@ -25,14 +25,13 @@
             </cv-side-nav-link>
 
             <!-- New  -->
-            <cv-side-nav-link to="/reports">
+            <cv-side-nav-link to="/overview">
                 <template v-slot:nav-icon><activity /></template>
                 Overview
             </cv-side-nav-link>
-            
+
             <cv-side-nav-menu-item class="footer" href="/logout">
                 <p>Logout</p>
-                
             </cv-side-nav-menu-item>
         </cv-side-nav-items>
     </cv-side-nav>

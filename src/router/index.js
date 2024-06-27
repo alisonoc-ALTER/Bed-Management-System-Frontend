@@ -14,8 +14,10 @@ import UserManagementView from "@/views/UserManagementView.vue";
 import BedsList from "@/components/admin/BedsList.vue";
 import BedView from "@/views/BedView.vue";
 import UserRoutingHistory from "@/components/admin/UserRoutingHistory.vue";
+import Overview from "@/views/Overview.vue";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+//import { component } from "vue/types/umd";
 Vue.use(VueRouter);
 
 const routes = [
@@ -37,6 +39,11 @@ const routes = [
                 path: "requests",
                 name: "requests",
                 component: RequestsView
+            },
+            {
+                path: "overview",
+                name: "overview",
+                component: Overview
             },
             {
                 path: "create",
