@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/auth/LoginView.vue";
 import DashboardView from "../views/DashboardView.vue";
+import Overview from "../views/Overview.vue";
 import RequestsView from "../views/RequestsView.vue";
 import CreateView from "../views/CreateView.vue";
 import SearchView from "../views/SearchView.vue";
@@ -14,10 +15,10 @@ import UserManagementView from "@/views/UserManagementView.vue";
 import BedsList from "@/components/admin/BedsList.vue";
 import BedView from "@/views/BedView.vue";
 import UserRoutingHistory from "@/components/admin/UserRoutingHistory.vue";
-import Overview from "@/views/Overview.vue";
+
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-//import { component } from "vue/types/umd";
+
 Vue.use(VueRouter);
 
 const routes = [

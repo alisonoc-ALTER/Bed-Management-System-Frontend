@@ -24,8 +24,8 @@
                 Admin
             </cv-side-nav-link>
 
-            <!-- New  -->
-            <cv-side-nav-link to="/overview">
+            
+            <cv-side-nav-link to="overview">
                 <template v-slot:nav-icon><activity /></template>
                 Overview
             </cv-side-nav-link>
