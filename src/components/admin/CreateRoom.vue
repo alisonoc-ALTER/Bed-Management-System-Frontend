@@ -37,9 +37,15 @@ export default {
                 ward_id: 0,
                 created_at: undefined
             },
-            showModal: true,
+            showModal: false,
             genders: ["All", "Male", "Female"]
         };
+    },
+    props: {
+        roomId: {
+            type: String,
+            required: false
+        }
     },
     methods: {
         async createRoom() {
@@ -82,6 +88,15 @@ export default {
                 console.error(err);
             }
             this.showModal = false;
+        }
+    },
+    watch: {
+        roomId(value) {
+            if (value === "999999") {
+                this.showModal = true;
+            } else {
+                this.showModal = false;
+            }
         }
     },
     computed: {

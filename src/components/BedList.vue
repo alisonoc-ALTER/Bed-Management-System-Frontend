@@ -64,7 +64,7 @@
             </template>
         </cv-data-table>
         <cv-toast-notification
-            v-if="!treatmentLevel || !age || !gender || !hospitalId"
+            v-if="!treatmentLevel || !gender || !hospitalId"
             id="fill-info-notification"
             title="Fill available fields for list of beds"
         ></cv-toast-notification>
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import GenderTag from "./Layout/GenderTag.vue";
+import GenderTag from "./tags/GenderTag.vue";
 
 export default {
     name: "BedList",
@@ -192,7 +192,7 @@ export default {
                 });
                 const beds = await response.json();
                 const bedsPromises = beds.map(async (bed) => {
-                    if (await this.isBedActive(bed.id, wardId)) {
+                    if (await this.isBedActive(bed.id)) {
                         activeBeds.push(bed);
                     }
                 });
@@ -219,16 +219,15 @@ export default {
                 console.error(err);
             }
         },
-        async isBedActive(bedId, wardId) {
+        async isBedActive(bedId) {
             try {
-                const response = await fetch(`/api/beds/status/${wardId}`, {
+                const response = await fetch(`/api/beds/find/${bedId}/status`, {
                     headers: {
                         Authorization: `Bearer ${this.$store.getters.getAuthToken}`
                     }
                 });
-                const bedsDetails = await response.json();
-                const bedDetails = bedsDetails.find((bed) => bed.id === bedId);
-                return !(bedDetails.disabled || bedDetails.occupied);
+                const bedDetails = await response.json();
+                return !bedDetails.disabled;
             } catch (err) {
                 console.error(err);
             }

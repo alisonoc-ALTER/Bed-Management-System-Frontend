@@ -15,6 +15,7 @@ import UserManagementView from "@/views/UserManagementView.vue";
 import BedsList from "@/components/admin/BedsList.vue";
 import BedView from "@/views/BedView.vue";
 import UserRoutingHistory from "@/components/admin/UserRoutingHistory.vue";
+import UserTransferRequestsView from "@/views/UserTransferRequestsView.vue";
 
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -37,9 +38,14 @@ const routes = [
                 component: DashboardView
             },
             {
+                path: "transfers",
+                name: "transfers",
+                component: RequestsView
+            },
+            {
                 path: "requests",
                 name: "requests",
-                component: RequestsView
+                component: UserTransferRequestsView
             },
             {
                 path: "overview",
@@ -172,11 +178,13 @@ router.beforeEach(async (to, from, next) => {
     }
 
     if (
-        to.path.includes("requests") &&
+        to.path.includes("transfers") &&
         (!userDetails.can_administrate ||
             userDetails.hospital_id !== selectedHospital.id)
     ) {
-        console.warn("User does not have permission to manage requests");
+        console.warn(
+            "User does not have permission to manage transfer requests"
+        );
         next({ name: "dashboard" });
     }
 

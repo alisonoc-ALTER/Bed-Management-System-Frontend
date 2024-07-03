@@ -1,6 +1,6 @@
 <template>
     <div class="searchView">
-        <SearchTable v-if="resultsReady" :data="results" :bedsOnly="false" />
+        <SearchTable :data="results" :bedsOnly="false" />
     </div>
 </template>
 
@@ -13,8 +13,7 @@ export default {
     },
     data() {
         return {
-            results: [],
-            resultsReady: false
+            results: []
         };
     },
     computed: {
@@ -55,7 +54,7 @@ export default {
         async getPatients(bedId) {
             let activeBeds;
             try {
-                const response = await fetch(`/api/beds/active/${bedId}`, {
+                const response = await fetch(`/api/beds/find/${bedId}/active`, {
                     headers: {
                         Authorization: `Bearer ${this.$store.getters.getAuthToken}`
                     }
@@ -98,11 +97,14 @@ export default {
         },
         async getBedStatuses(wardId) {
             try {
-                const response = await fetch(`/api/beds/status/${wardId}`, {
-                    headers: {
-                        Authorization: `Bearer ${this.$store.getters.getAuthToken}`
+                const response = await fetch(
+                    `/api/beds/statuses?ward_id=${wardId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${this.$store.getters.getAuthToken}`
+                        }
                     }
-                });
+                );
                 const bedStatuses = await response.json();
                 return bedStatuses;
             } catch (err) {
@@ -110,7 +112,6 @@ export default {
             }
         },
         async findMatching() {
-            this.resultsReady = false;
             const wards = await this.getWards();
             const bedsPromises = wards.map((ward) => this.getBeds(ward.id));
             const beds = (await Promise.all(bedsPromises)).flat();
@@ -135,20 +136,21 @@ export default {
 
                 return {
                     ward: ward.description,
+                    wardId: ward.id,
                     bedId: bed.id,
                     bedDescription: bed.description,
                     roomDescription: bed.room?.description || "N/A",
+                    patientId: patient ? patient.id : null,
                     patientName: patient
                         ? `${patient.first_name} ${patient.last_name}`
                         : null,
+                    patientGender: patient ? patient.gender : null,
                     dateOfBirth: patient ? patient.date_of_birth : null,
                     treatmentLevel: ward ? treatmentLevel.name : null,
-                    cleaning: bedStatus.disabled,
-                    occupied: bedStatus.occupied
+                    disabled_reason: bedStatus.disabled_reason
                 };
             });
             this.results = results;
-            this.resultsReady = true;
         }
     },
     watch: {

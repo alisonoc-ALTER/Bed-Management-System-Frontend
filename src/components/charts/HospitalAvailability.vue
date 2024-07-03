@@ -31,14 +31,10 @@ export default {
         return {
             chartId: "Total Availability",
             chartData: {
-                labels: ["Available", "Cleaning Required", "Occupied"],
+                labels: [""],
                 datasets: [
                     {
-                        backgroundColor: [
-                            "rgba(0,255,0,0.75)",
-                            "rgba(255,255,0,0.75)",
-                            "rgba(255,0,0,0.75)"
-                        ],
+                        backgroundColor: [""],
                         data: []
                     }
                 ]
@@ -69,58 +65,76 @@ export default {
         },
         dataAvailable() {
             return this.chartData.datasets[0].data.some((value) => value > 0);
+        },
+        disabledReasons() {
+            return [
+                { id: 0, name: "Available", color: "rgba(0,255,0,0.75)" }
+            ].concat(
+                this.$store.getters.getDisabledReasons.map((reason) => {
+                    let color = "rgba(0,0,0,0.75)";
+                    if (reason.id === 1) color = "rgba(255,255,0,0.75)";
+                    else if (reason.id === 2) color = "rgba(255,0,0,0.75)";
+                    else if (reason.id === 3) color = "rgba(0,255,255,0.75)";
+                    else if (reason.id === 4) color = "rgba(155,155,155,0.75)";
+                    return {
+                        id: reason.id,
+                        name: reason.reason,
+                        color: color
+                    };
+                })
+            );
+        },
+        disabledReasonNames() {
+            return this.disabledReasons.map((reason) => reason.name);
+        },
+        disabledReasonColors() {
+            return this.disabledReasons.map((reason) => reason.color);
         }
     },
     methods: {
         async fetchWardBeds() {
-            this.processBedData([[0, 0, 0]]);
+            try {
+                const bedsDataResults = await this.fetchBedStatuses(
+                    this.selectedHospital.id
+                );
+                if (
+                    this.chartData.datasets[0].data.join("") !==
+                    bedsDataResults.join("")
+                ) {
+                    this.chartData.datasets[0].data = [[]];
+                    await new Promise((resolve) => setTimeout(resolve, 1));
+                    this.chartData.datasets[0].data = bedsDataResults;
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        },
+        async fetchBedStatuses(hospitalId) {
             try {
                 const response = await fetch(
-                    `/api/wards/all?hospital_id=${this.selectedHospital.id}`,
+                    `/api/beds/statuses?hospital_id=${hospitalId}`,
                     {
                         headers: {
                             Authorization: `Bearer ${this.$store.getters.getAuthToken}`
                         }
                     }
                 );
-                const wards = await response.json();
-                const bedsDataPromises = wards.map((ward) =>
-                    this.fetchBedStatus(ward.id)
-                );
-                const bedsDataResults = await Promise.all(bedsDataPromises);
-                this.processBedData(bedsDataResults);
-            } catch (err) {
-                console.error(err);
-            }
-        },
-        async fetchBedStatus(wardId) {
-            try {
-                const response = await fetch(`/api/beds/status/${wardId}`, {
-                    headers: {
-                        Authorization: `Bearer ${this.$store.getters.getAuthToken}`
-                    }
-                });
                 const beds = await response.json();
-                let counts = [0, 0, 0];
-                beds.forEach((bed) => {
-                    if (!bed.disabled && !bed.occupied) counts[0]++;
-                    else if (bed.disabled) counts[1]++;
-                    else if (bed.occupied) counts[2]++;
+                let counts = [0];
+                beds.map((bed) => {
+                    if (!bed.disabled) {
+                        counts[0]++;
+                    } else if (counts[bed.disabled_reason.id]) {
+                        counts[bed.disabled_reason.id]++;
+                    } else {
+                        counts[bed.disabled_reason.id] = 1;
+                    }
                 });
                 return counts;
             } catch (err) {
                 console.error(err);
                 return [0, 0, 0];
             }
-        },
-        processBedData(bedsData) {
-            let totals = [0, 0, 0];
-            bedsData.forEach((bed) => {
-                totals[0] += bed[0];
-                totals[1] += bed[1];
-                totals[2] += bed[2];
-            });
-            this.chartData.datasets[0].data = totals;
         }
     },
     props: {
@@ -138,6 +152,8 @@ export default {
         }
     },
     mounted() {
+        this.chartData.labels = this.disabledReasonNames;
+        this.chartData.datasets[0].backgroundColor = this.disabledReasonColors;
         this.fetchWardBeds();
     }
 };

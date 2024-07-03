@@ -57,7 +57,7 @@
 
 <script>
 import BedList from "@/components/BedList.vue";
-import GenderTag from "@/components/Layout/GenderTag.vue";
+import GenderTag from "@/components/tags/GenderTag.vue";
 
 export default {
     name: "TransferView",
@@ -139,11 +139,14 @@ export default {
         },
         async findPatient() {
             try {
-                let response = await fetch(`/api/beds/active/${this.bedId}`, {
-                    headers: {
-                        Authorization: `Bearer ${this.$store.getters.getAuthToken}`
+                let response = await fetch(
+                    `/api/beds/find/${this.bedId}/active`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${this.$store.getters.getAuthToken}`
+                        }
                     }
-                });
+                );
                 const bedActiveResponse = await response.json();
                 const patientId = bedActiveResponse[0]?.patient_id;
                 if (patientId) {

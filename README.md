@@ -113,6 +113,12 @@ The bed status page seen in the above figure shows the status of a given bed and
 
 The patient transfer screen allows users to request a transfer for a patient to another bed in the same or different hospital. The request can then only be approved by the bed manager where the patient is being transferred to.
 
+#### Manage Transfer Requests
+
+![Transfer Requests](/docs/images/Manage%20Requests.png)
+
+The transfer requests page allows bed managers to view all transfer requests and approve or reject them. The page also shows the previously approved transfer requests.
+
 #### User Management
 
 ![Manage Users](/docs/images/Manage%20Users.png)

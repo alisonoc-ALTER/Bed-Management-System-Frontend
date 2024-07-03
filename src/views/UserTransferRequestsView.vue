@@ -1,6 +1,6 @@
 <template>
-    <div id="requestsTable">
-        <CombinedTransferTables :userSpecific="false" />
+    <div id="usersTransferRequests">
+        <combined-transfer-tables :userSpecific="true" />
     </div>
 </template>
 
@@ -8,7 +8,7 @@
 import CombinedTransferTables from "@/components/transfer_tables/CombinedTransferTables.vue";
 
 export default {
-    name: "RequestsView",
+    name: "UserTransferRequestsView",
     components: {
         CombinedTransferTables
     }

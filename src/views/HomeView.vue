@@ -52,6 +52,7 @@ export default {
     },
     created() {
         this.$store.dispatch("fetchHospitals");
+        this.$store.dispatch("fetchDisabledReasons");
     },
     beforeDestroy() {
         if (this.fetchTransferRequestsInterval) {

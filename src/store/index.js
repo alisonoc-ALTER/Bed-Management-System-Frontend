@@ -13,7 +13,8 @@ export default new Vuex.Store({
         selectedHospital: {},
         authToken: "",
         notifications: [],
-        transferRequests: []
+        transferRequests: [],
+        disabledReasons: []
     },
     getters: {
         allHospitals: (state) => state.hospitals,
@@ -25,7 +26,8 @@ export default new Vuex.Store({
         },
         getAuthToken: (state) => state.authToken,
         getNotifications: (state) => state.notifications,
-        getTransferRequests: (state) => state.transferRequests
+        getTransferRequests: (state) => state.transferRequests,
+        getDisabledReasons: (state) => state.disabledReasons
     },
     mutations: {
         SET_HOSPITALS(state, hospitals) {
@@ -56,6 +58,9 @@ export default new Vuex.Store({
         },
         SET_TRANSFER_REQUESTS(state, requests) {
             state.transferRequests = requests;
+        },
+        SET_DISABLED_REASONS(state, reasons) {
+            state.disabledReasons = reasons;
         }
     },
     actions: {
@@ -102,6 +107,19 @@ export default new Vuex.Store({
                 )
                 .then((response) => {
                     commit("SET_TRANSFER_REQUESTS", response.data);
+                })
+                .catch((error) => console.error(error));
+        },
+        fetchDisabledReasons({ commit, state }) {
+            axios
+                .get("/api/beds/disabled_reasons", {
+                    headers: {
+                        Authorization: `Bearer ${state.authToken}`,
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then((response) => {
+                    commit("SET_DISABLED_REASONS", response.data);
                 })
                 .catch((error) => console.error(error));
         }

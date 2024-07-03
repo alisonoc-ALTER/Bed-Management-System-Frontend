@@ -89,7 +89,7 @@ export default {
                         patient_id: patient.id,
                         bed_id: bedId,
                         time_booked: new Date().toISOString(),
-                        created_by: 0,
+                        created_by: this.userId,
                         created_at: new Date().toISOString()
                     })
                 });
