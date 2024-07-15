@@ -1,7 +1,7 @@
 <template>
-  <div class="bar-chart-container">
-    <Bar
-      id="my-chart-id"
+  <div class="pie-chart-container">
+    <Pie
+      id="my-pie-chart-id"
       :options="chartOptions"
       :data="chartData"
     />
@@ -9,21 +9,21 @@
 </template>
 
 <script>
-import { Bar } from 'vue-chartjs';
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
+import { Pie } from 'vue-chartjs';
+import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
+ChartJS.register(Title, Tooltip, Legend, ArcElement);
 
 export default {
-  name: 'BarChart',
-  components: { Bar },
+  name: 'PieChart',
+  components: { Pie },
   data() {
     return {
       chartData: {
         labels: ['UHL', 'Croom', 'Ennis', 'Nenagh', 'Maternity', 'St Johns'],
         datasets: [{
-          label: 'Capacity',  
-          data: [40, 20, 12, 34, 34, 44],
+          label: 'Capacity',
+          data: [965, 120, 112, 134, 134, 144],
           backgroundColor: [
             'rgba(75, 192, 192, 0.2)',
             'rgba(153, 102, 255, 0.2)',
@@ -47,32 +47,31 @@ export default {
         responsive: true,
         plugins: {
           legend: {
-            display: false,
+            display: true,
             position: 'top',
           },
           title: {
             display: true,
-            text: 'Capacity Overview',
-            font:{
+            text: 'Hospital Capacity Distribution',
+            font: {
               size: 18,
               weight: 'bold'
             }
-            
           }
         }
       }
-    }
+    };
   }
 };
 </script>
 
 <style scoped>
-.bar-chart-container {
-  max-width: 800px;
+.pie-chart-container {
+  max-width: 600px;
   margin: 0 auto;
 }
 
-#my-chart-id {
+#my-pie-chart-id {
   background-color: #f5f5f5;
   padding: 20px;
   border-radius: 8px;
