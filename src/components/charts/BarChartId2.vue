@@ -1,3 +1,4 @@
+<!-- Bar chart in overview for hoispital with the ID no 2 -->
 <template>
   <div class="bar-chart-container" v-if="loaded">
     <Bar
@@ -5,9 +6,6 @@
       :options="chartOptions"
       :data="chartData"
     />
-  </div>
-  <div v-else>
-    Loading...
   </div>
 </template>
 
@@ -18,7 +16,7 @@ import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, Li
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
 export default {
-  name: 'BarChart',
+  name: 'BarChartId2',
   components: { Bar },
   data() {
     return {
@@ -45,7 +43,7 @@ export default {
         plugins: {
           title: {
             display: true,
-            text: "Croom" // Default title
+            text: "Hospital no 2" //HardCode or make dynamic
           }
         }
       },
@@ -64,10 +62,10 @@ export default {
     };
   },
  
-  methods: {
+ methods: {
     async countDisabledBeds() {
       try {
-        const response = await fetch('/api/beds/statuses?hospital_id=1'); // Adjust hospital_id
+        const response = await fetch('/api/beds/statuses?hospital_id=2'); // Adjust hospital_id 
         const data = await response.json();
   
         if (!Array.isArray(data)) {
@@ -94,7 +92,7 @@ export default {
     
     async fetchHospitalName() {
       try {
-        const response = await fetch('/api/hospitals/find?id=1'); 
+        const response = await fetch('/api/hospitals/find?id=2'); 
         const data = await response.json();
         // description not name in api call
         if (data && data.description) {

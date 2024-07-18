@@ -23,7 +23,7 @@ export default {
         labels: ['UHL', 'Croom', 'Ennis', 'Nenagh', 'Maternity', 'St Johns'],
         datasets: [{
           label: 'Capacity',
-          data: [965, 120, 112, 134, 134, 144],
+          data: [762, 57, 95, 85, 110, 110],
           backgroundColor: [
             'rgba(75, 192, 192, 0.2)',
             'rgba(153, 102, 255, 0.2)',
