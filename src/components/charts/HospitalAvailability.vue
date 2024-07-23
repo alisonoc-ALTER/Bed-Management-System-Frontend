@@ -24,9 +24,7 @@ ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
 
 export default {
     name: "PieChart",
-    components: {
-        Pie
-    },
+    components: { Pie },
     data() {
         return {
             chartId: "Total Availability",
