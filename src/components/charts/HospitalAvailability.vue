@@ -19,14 +19,20 @@ import {
     ArcElement,
     CategoryScale
 } from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
-ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
+ChartJS.register(
+    Title,
+    Tooltip,
+    Legend,
+    ArcElement,
+    CategoryScale,
+    ChartDataLabels
+);
 
 export default {
     name: "PieChart",
-    components: {
-        Pie
-    },
+    components: { Pie },
     data() {
         return {
             chartId: "Total Availability",
@@ -35,7 +41,10 @@ export default {
                 datasets: [
                     {
                         backgroundColor: [""],
-                        data: []
+                        data: [],
+                        datalabels: {
+                            anchor: "end"
+                        }
                     }
                 ]
             },
@@ -52,8 +61,17 @@ export default {
                 maintainAspectRatio: false,
                 plugins: {
                     title: {
-                        display: true,
-                        text: "Hospital Availability"
+                        display: true
+                    },
+                    datalabels: {
+                        backgroundColor: function (context) {
+                            return context.dataset.backgroundColor;
+                        },
+                        padding: 6,
+                        borderColor: "white",
+                        borderRadius: 25,
+                        borderWidth: 2,
+                        color: "black"
                     }
                 }
             }
@@ -61,7 +79,9 @@ export default {
     },
     computed: {
         selectedHospital() {
-            return this.$store.getters.getSelectedHospital;
+            return (
+                this.hospitalId || this.$store.getters.getSelectedHospital.id
+            );
         },
         dataAvailable() {
             return this.chartData.datasets[0].data.some((value) => value > 0);
@@ -95,7 +115,7 @@ export default {
         async fetchWardBeds() {
             try {
                 const bedsDataResults = await this.fetchBedStatuses(
-                    this.selectedHospital.id
+                    this.selectedHospital
                 );
                 if (
                     this.chartData.datasets[0].data.join("") !==
@@ -126,10 +146,19 @@ export default {
                         counts[0]++;
                     } else if (counts[bed.disabled_reason.id]) {
                         counts[bed.disabled_reason.id]++;
-                    } else {
+                    } else if (bed.disabled_reason.id) {
                         counts[bed.disabled_reason.id] = 1;
                     }
                 });
+                if (counts.length < this.disabledReasons.length) {
+                    for (
+                        let i = counts.length;
+                        i < this.disabledReasons.length;
+                        i++
+                    ) {
+                        counts[i] = 0;
+                    }
+                }
                 return counts;
             } catch (err) {
                 console.error(err);
@@ -141,6 +170,18 @@ export default {
         update: {
             type: Number,
             required: false
+        },
+        showDataLabels: {
+            type: Boolean,
+            default: false
+        },
+        hospitalId: {
+            type: Number,
+            required: false
+        },
+        title: {
+            type: String,
+            default: "Hospital Availability"
         }
     },
     watch: {
@@ -152,6 +193,13 @@ export default {
         }
     },
     mounted() {
+        this.chartOptions.plugins.title.text = this.title;
+        this.chartOptions.plugins.datalabels.display = this.showDataLabels
+            ? function (context) {
+                  const dataset = context.dataset;
+                  return dataset.data[context.dataIndex] > 0;
+              }
+            : false;
         this.chartData.labels = this.disabledReasonNames;
         this.chartData.datasets[0].backgroundColor = this.disabledReasonColors;
         this.fetchWardBeds();

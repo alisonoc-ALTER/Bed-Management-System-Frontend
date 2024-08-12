@@ -58,6 +58,9 @@ export default {
                     title: {
                         display: true,
                         text: "Ward Availability"
+                    },
+                    datalabels: {
+                        display: false
                     }
                 }
             },

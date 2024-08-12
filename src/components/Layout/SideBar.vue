@@ -9,6 +9,10 @@
                 <template v-slot:nav-icon><home-icon /></template>
                 Dashboard
             </cv-side-nav-link>
+            <cv-side-nav-link to="/overview">
+                <template v-slot:nav-icon><activity /></template>
+                Overview
+            </cv-side-nav-link>
             <cv-side-nav-link to="/search">
                 <template v-slot:nav-icon><search-icon /></template>
                 Search
@@ -19,7 +23,6 @@
                     <template v-slot:nav-icon></template>
                     Your Transfer Requests
                 </cv-side-nav-link>
-
                 <cv-side-nav-link
                     to="/transfers"
                     v-if="bedManager && userHospitalId === currentHospitalId"
@@ -49,6 +52,7 @@ import HomeIcon from "@carbon/icons-vue/es/home/32";
 import ManageRequestsIcon from "@carbon/icons-vue/lib/airline--rapid-board/32";
 import IncomingRequestsIcon from "@carbon/icons-vue/lib/airline--manage-gates/32";
 import NetworkAdminControl from "@carbon/icons-vue/es/network--admin-control/32";
+import Activity from "@carbon/icons-vue/es/activity/32.js";
 import SearchIcon from "@carbon/icons-vue/es/search/32";
 
 export default {
@@ -60,6 +64,7 @@ export default {
         IncomingRequestsIcon,
         ManageRequestsIcon,
         NetworkAdminControl,
+        Activity,
         SearchIcon
     },
     computed: {

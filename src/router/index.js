@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/auth/LoginView.vue";
 import DashboardView from "../views/DashboardView.vue";
+import Overview from "../views/Overview.vue";
 import RequestsView from "../views/RequestsView.vue";
 import CreateView from "../views/CreateView.vue";
 import SearchView from "../views/SearchView.vue";
@@ -16,7 +17,9 @@ import BedView from "@/views/BedView.vue";
 import UserRoutingHistory from "@/components/admin/UserRoutingHistory.vue";
 import UserTransferRequestsView from "@/views/UserTransferRequestsView.vue";
 
+
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -43,6 +46,11 @@ const routes = [
                 path: "requests",
                 name: "requests",
                 component: UserTransferRequestsView
+            },
+            {
+                path: "overview",
+                name: "overview",
+                component: Overview
             },
             {
                 path: "create",
