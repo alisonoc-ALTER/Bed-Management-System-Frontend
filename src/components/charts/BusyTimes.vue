@@ -68,6 +68,9 @@ export default {
                     title: {
                         display: true,
                         text: "Busy Times (Average over Past 72h)"
+                    },
+                    datalabels: {
+                        display: false
                     }
                 },
                 scales: {

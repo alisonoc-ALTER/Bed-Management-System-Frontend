@@ -56,6 +56,9 @@ export default {
                     title: {
                         display: true,
                         text: "Ward Trend"
+                    },
+                    datalabels: {
+                        display: false
                     }
                 },
                 scales: {
