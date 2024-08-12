@@ -9,6 +9,10 @@
                 <template v-slot:nav-icon><home-icon /></template>
                 Dashboard
             </cv-side-nav-link>
+            <cv-side-nav-link to="/overview">
+                <template v-slot:nav-icon><activity /></template>
+                Overview
+            </cv-side-nav-link>
             <cv-side-nav-link to="/search">
                 <template v-slot:nav-icon><search-icon /></template>
                 Search
@@ -19,7 +23,6 @@
                     <template v-slot:nav-icon></template>
                     Your Transfer Requests
                 </cv-side-nav-link>
-
                 <cv-side-nav-link
                     to="/transfers"
                     v-if="bedManager && userHospitalId === currentHospitalId"
@@ -34,14 +37,9 @@
                 <template v-slot:nav-icon><network-admin-control /></template>
                 Admin
             </cv-side-nav-link>
-
-            <cv-side-nav-link to="overview">
-                <template v-slot:nav-icon><activity /></template>
-                Overview
-            </cv-side-nav-link>
-
             <cv-side-nav-menu-item class="footer" href="/logout">
                 <p>Logout</p>
+                <logout-icon />
             </cv-side-nav-menu-item>
         </cv-side-nav-items>
     </cv-side-nav>
