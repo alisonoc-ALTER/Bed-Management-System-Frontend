@@ -23,6 +23,7 @@
 - [Description](#description)
   - [Technology Stack](#technology-stack)
   - [Features](#features)
+- [User Guide](#user-guide)
 - [Installation](#installation)
 - [Development](#development)
 - [Deployment](#deployment)
@@ -161,6 +162,231 @@ When a patient is discharged from a bed, the bed is marked as requiring cleaning
 ![Login Form](/docs/images/Login%20Component.png)
 
 Firebase Authentication is used to authenticate users. The system has three user roles: Doctors & Nurses, Bed Managers, and Administrators. Each user role has different permissions.
+
+## User Guide
+
+### How to manage users
+
+#### Adding a user
+
+**ADMIN Permissions Required to manage users**
+
+1. Navigate to "Admin" in the sidebar
+2. Click on "Manage Users"
+3. At the bottom of the table there are text input boxes for
+
+   - First Name
+   - Last Name
+   - Email
+   - Phone number
+
+   and checkboxes to grant the user permissions
+
+   - Can Approve Requests
+   - Can Administrate
+
+   Fill in all this information for the new user
+
+4. Click the "Create" button on the furthest right column to create the user
+5. A pop-up will appear to enter a password for the new user
+6. (Optional) Follow [Resetting a user's password](#resetting-a-users-password) to reset the password for the new user
+
+#### Deleting a user
+
+**ADMIN Permissions Required to manage users**
+
+1. Navigate to "Admin" in the sidebar
+2. Click on "Manage Users"
+3. Using the table find the user you want to delete
+4. Click the "Delete" button on the furthest right column to delete the user
+
+#### Resetting a user's password
+
+**ADMIN Permissions Required to manage users**
+
+1. Navigate to "Admin" in the sidebar
+2. Click on "Manage Users"
+3. Using the table find the user you want to reset the password for
+4. Click the "Change Password" button on the furthest right column to reset the password for the user
+5. Instruct the user to check their email for further instructions on how to change their password
+
+#### Viewing a users browsing history
+
+**ADMIN Permissions Required to manage users**
+
+1. Navigate to "Admin" in the sidebar
+2. Click on "Manage Users"
+3. Using the table find the user you want to view the browsing history for
+4. Click the ![Browsing History Button](/docs/images/Browsing%20History%20Button.png) button on the furthest right column
+5. Navigate to the bottom of the page
+6. Input a "Start Date" and "End Date" to view the browsing history for that user during that time period
+
+### How to manage wards & beds
+
+#### How to create wards
+
+**ADMIN Permissions Required to manage users**
+
+1. Navigate to "Admin" in the sidebar
+2. Click on "Manage Wards/Beds"
+3. At the bottom of the table there are text input boxes for
+
+   - Ward Name
+   - Min Patient Age
+   - Max Patient Age
+   - Location (Must be a number)
+
+   and dropdown boxes to select
+
+   - Treatment Level
+   - Gender
+
+   Fill in all this information for the new ward
+
+4. Click the "Create Ward" button on the furthest right column to create the ward
+
+#### How to delete wards
+
+**ADMIN Permissions Required to manage wards**
+
+1. Navigate to "Admin" in the sidebar
+2. Click on "Manage Wards/Beds"
+3. Using the table find the ward you want to delete
+4. Click the "Delete" button on the furthest right column to delete the ward
+
+#### How to create beds & rooms
+
+**ADMIN Permissions Required to manage beds & rooms**
+
+1. Navigate to "Admin" in the sidebar
+2. Click on "Manage Wards/Beds"
+3. Using the table find the ward you want to add a bed to
+4. Click the "View Beds" button on the furthest right column
+5. Scroll down the page until you see a different table with beds
+6. At the bottom of the table there are text input boxes for name
+7. **Optional** If the bed is in a room within the ward
+   1. Select the room from the dropdown if it already exists **or** select "Create New Room" to create a new room.
+   2. If creating a new room enter the room description and the gender of the room in the popup
+   3. Click "Create" to create the room
+   4. Select the newly created room from the dropdown
+8. Click the "Create Bed" button on the furthest right column to create the bed
+
+#### How to delete beds
+
+**ADMIN Permissions Required to manage beds**
+
+1. Navigate to "Admin" in the sidebar
+2. Click on "Manage Wards/Beds"
+3. Using the table find the ward that the bed you want to delete is in
+4. Click the "View Beds" button on the furthest right column
+5. Using the table find the bed you want to delete
+6. Click the "Delete" button on the furthest right column to delete the bed
+
+### How to assign/unassign patients to beds
+
+#### How to assign a patient to a bed
+
+1. On the Dashboard click the "Create" button
+2. Fill in the patient details
+   - First Name
+   - Last Name
+   - Date of Birth
+   - Gender
+3. Click "Search" to find a bed that meets the patient's requirements
+4. Using the table on the right find the bed you want to assign the patient to
+5. **Optional** View ![How to bypass bed selection filters](#how-to-bypass-bed-selection-filters) to remove the age and/or gender filters
+6. Click the "Assign" button on the furthest right column to assign the patient to the bed
+
+#### How to bypass bed selection filters
+
+1. While transferring a patient or assigning a patient to a bed
+2. At the top of the table on the right there are tags for
+
+   - Age
+   - Gender
+
+   Click the "X" on the tag to remove the filter and display the beds that are currently hidden.
+
+### Transfer Requests
+
+#### How to transfer patients
+
+1. On the Dashboard click the "Transfer" button
+2. Search for the patient you want to transfer
+3. Click the "Transfer" button on the furthest right column to transfer the patient
+4. Select the hospital you want to transfer the patient to from the dropdown on the right
+5. Find the bed you want to transfer the patient to in the table
+6. Click the "Transfer" button on the furthest right column to request the transfer
+
+#### How to approve transfer requests
+
+**BED MANAGER Permissions Required to approve transfer requests**
+
+1. On the sidebar click "Transfer" then "Manage Transfer Requests"
+2. In the "Pending Transfer Requests" table find the request you want to approve
+3. Click the "Approve" button on the furthest right column to approve the request
+
+#### How to delete transfer requests
+
+**BED MANAGER Permissions Required to reject transfer requests**
+
+1. On the sidebar click "Transfer" then "Manage Transfer Requests"
+2. In the "Pending Transfer Requests" table find the request you want to reject
+3. Click the "Delete" button on the furthest right column to reject the request
+
+#### How to view approved transfer requests
+
+**BED MANAGER Permissions Required to view approved transfer requests**
+
+1. On the sidebar click "Transfer" then "Manage Transfer Requests"
+2. In the "Approved Transfer Requests" table find the request you want to view
+
+#### How to view transfer requests you initiated
+
+1. On the sidebar click "Transfer" then "Your Transfer Requests"
+
+#### How to delete transfer requests you initiated
+
+1. On the sidebar click "Transfer" then "Your Transfer Requests"
+2. In the "Pending Transfer Requests" table find the request you want to delete
+3. Click the "Delete" button on the furthest right column to delete the request
+
+### How to update bed status
+
+1. When viewing a Bed Info page (accessible by scanning a bed's QR code or by [Searching](#how-to-search-for-patients-and-beds) for a bed)
+2. On the left side of the page there is a section called "Actions"
+3. Depending on the current status of the bed there will be different statuses available to update to by clicking the respective button
+
+Alternative step 3 for **Bed Managers ONLY**
+
+1. When viewing a Bed Info page (accessible by scanning a bed's QR code or by [Searching](#how-to-search-for-patients-and-beds) for a bed)
+2. On the left side of the page there is a section called "Manage"
+3. Using the dropdown select the status you want to update the bed to
+
+### How to view other hospitals
+
+1. At the top of the page where the hospital name is displayed there is a dropdown
+2. Click the dropdown to select the hospital you want to view
+
+### How to search for patients and beds
+
+1. On the dashboard click the "Search" button
+2. At the top of the page there is a search bar
+3. Enter a search query. You can search for
+
+   - Patient First Name
+   - Patient Last Name
+   - Patient Date of Birth
+   - Bed Name
+   - Ward Name
+   - Room Name
+   - Gender
+
+### How to download bed QR codes
+
+1. When viewing a Bed Info page (accessible by scanning a bed's QR code or by [Searching](#how-to-search-for-patients-and-beds) for a bed)
+2. On the left side of the page there is a section called "QR code"
+3. Click the "Download" button to download the QR code for the bed
 
 ## Installation
 
